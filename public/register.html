@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | BuildTrack</title>
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <script src="/js/app-language.js" defer></script>
+  <script src="/js/register.js" defer></script>
+
+  <style>
+  .auth-card {
+    box-sizing: border-box;
+    width: min(100% - 32px, 520px);
+    margin: 32px auto;
+    padding: 32px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 12px 36px rgba(25, 40, 55, 0.12);
+  }
+
+  #registerForm {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  #registerForm label {
+    margin-top: 6px;
+    font-weight: 600;
+  }
+
+  #registerForm input,
+  #registerForm select {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid #d5dce3;
+    border-radius: 8px;
+    background: #fff;
+    font: inherit;
+  }
+
+  #registerForm input:focus,
+  #registerForm select:focus {
+    outline: 3px solid rgba(233, 148, 36, 0.22);
+    border-color: #e99424;
+  }
+
+  #registerForm button {
+    width: 100%;
+    min-height: 46px;
+    margin-top: 12px;
+  }
+
+  #registerForm button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+  }
+
+  #contractorFields,
+  #workerFields {
+    display: grid;
+    gap: 10px;
+  }
+
+  #contractorFields[hidden],
+  #workerFields[hidden] {
+    display: none;
+  }
+
+  #registerMessage {
+    min-height: 24px;
+    margin: 8px 0 0;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 560px) {
+    .auth-card {
+      margin: 16px auto;
+      padding: 22px;
+    }
+  }
+</style>
+</head>
+<body class="auth-page">
+  <main class="auth-card">
+    <a class="brand" href="/">
+      <span class="brand-mark" aria-hidden="true">B</span>
+      <span>BuildTrack</span>
+    </a>
+
+    <p class="eyebrow" data-reg-i18n="eyebrow">CONSTRUCTION PROJECT MANAGEMENT</p>
+    <h1 data-reg-i18n="title">Create an account</h1>
+    <p class="muted" data-reg-i18n="intro">
+      Create a Registered User account to view the dashboard and project details.
+    </p>
+
+    <form id="registerForm">
+      <label for="role" data-reg-i18n="accountType">Account type</label>
+      <select id="role" required>
+        <option value="viewer">Registered User (view only)</option>
+        <option value="contractor" data-reg-i18n="contractor">Contractor</option>
+        <option value="worker" data-reg-i18n="worker">Worker</option>
+      </select>
+
+      <label for="fullName" data-reg-i18n="fullName">Full name</label>
+      <input id="fullName" type="text" minlength="2" maxlength="100" required>
+
+      <label for="email" data-reg-i18n="email">Email address</label>
+      <input id="email" type="email" maxlength="254" required>
+
+      <label for="phone" data-reg-i18n="phone">Phone</label>
+      <input id="phone" type="tel" maxlength="24">
+
+      <label for="address" data-reg-i18n="address">Address</label>
+      <input id="address" type="text" maxlength="300">
+
+      <div id="contractorFields">
+        <label for="companyName" data-reg-i18n="companyName">Company name</label>
+        <input id="companyName" type="text" minlength="2" maxlength="150" required>
+      </div>
+
+      <div id="workerFields" hidden>
+        <label for="skill" data-reg-i18n="skill">Skill</label>
+        <input id="skill" type="text" minlength="2" maxlength="100">
+
+        <label for="experienceYears" data-reg-i18n="experience">Experience (years)</label>
+        <input id="experienceYears" type="number" min="0" max="60" step="1">
+      </div>
+
+      <label for="password" data-reg-i18n="password">Password (at least 12 characters)</label>
+      <input id="password" type="password" minlength="12" maxlength="72" autocomplete="new-password" required>
+
+      <label for="confirmPassword" data-reg-i18n="confirmPassword">Confirm password</label>
+      <input id="confirmPassword" type="password" minlength="12" maxlength="72" autocomplete="new-password">
+
+      <p id="registerMessage" class="form-message" aria-live="polite"></p>
+
+      <button id="registerButton" class="button button-primary button-wide" type="submit"
+              data-reg-i18n="register">Register</button>
+    </form>
+
+    <p class="muted"><a href="/register.html?full=1">Register as a Contractor or Worker</a></p>
+
+    <p class="muted">
+      <span data-reg-i18n="alreadyHaveAccount">Already registered?</span>
+      <a href="/login.html" data-reg-i18n="signIn">Sign in</a>
+    </p>
+  </main>
+</body>
+</html>

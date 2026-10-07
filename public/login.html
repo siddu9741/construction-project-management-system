@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | BuildTrack</title>
+
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <script src="/js/login.js" defer></script>
+  <script src="/js/app-language.js" defer></script>
+</head>
+<body class="auth-page">
+  <main class="auth-card">
+    <a class="brand" href="/">
+      <span class="brand-mark" aria-hidden="true">B</span>
+      <span>BuildTrack</span>
+    </a>
+
+    <p class="eyebrow" data-i18n="constructionManagement">
+      CONSTRUCTION PROJECT MANAGEMENT
+    </p>
+
+    <h1 data-i18n="welcomeBack">Welcome back</h1>
+
+    <p class="muted" data-i18n="signInPrompt">
+      Sign in to open your project workspace.
+    </p>
+
+    <form id="loginForm">
+      <label for="role" data-i18n="accountType">Account type</label>
+      <select id="role" name="role" required>
+        <option value="admin" data-i18n="adminRole">Admin</option>
+        <option value="contractor" data-i18n="contractorRole">Contractor</option>
+        <option value="worker" data-i18n="workerLaborRole">Worker / Labor</option>
+        <option value="viewer">Registered User (view only)</option>
+      </select>
+
+      <label for="email" data-i18n="emailAddress">Email address</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        autocomplete="username"
+        required
+      >
+
+      <label for="password" data-i18n="password">Password</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        autocomplete="current-password"
+        required
+      >
+
+      <p id="loginMessage" class="form-message" aria-live="polite"></p>
+
+      <button
+        class="button button-primary button-wide"
+        type="submit"
+        data-i18n="signIn"
+      >
+        Sign in
+      </button>
+    </form>
+    <p>New here? <a href="/register.html">Create a Registered User account</a></p>
+    <p>Contractors and Workers: <a href="/register.html?full=1">Register here</a></p>
+    
+  </main>
+</body>
+</html>

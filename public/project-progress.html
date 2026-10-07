@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="progressPageTitle">Project Progress | Construction PMS</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/project-progress.css">
+</head>
+<body>
+  <header class="progress-topbar">
+    <a class="progress-brand" href="/projects.html">
+      BuildTrack <span>PMS</span>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <a href="/projects.html" data-i18n="projects">Projects</a>
+      <a class="active" href="/project-progress.html" data-i18n="progressTitle">
+        Project Progress
+      </a>
+      <a href="/attendance.html" data-i18n="attendanceNav">Attendance</a>
+    </nav>
+
+    <div class="progress-account">
+      <span id="accountName">User</span>
+      <button id="logoutButton" type="button" data-i18n="logOut">Log out</button>
+    </div>
+  </header>
+
+  <main class="progress-page">
+    <section class="progress-heading">
+      <div>
+        <p class="eyebrow" data-i18n="progressTracking">PROJECT TRACKING</p>
+        <h1 data-i18n="progressTitle">Project Progress</h1>
+        <p data-i18n="progressIntro">
+          Review the update history or report the latest work completed.
+        </p>
+      </div>
+
+      <label class="project-picker">
+        <span data-i18n="progressSelectProject">Select project</span>
+        <select id="projectSelect">
+          <option value="" data-i18n="progressLoadingProjects">
+            Loading your projects…
+          </option>
+        </select>
+      </label>
+    </section>
+
+    <p id="pageMessage" class="page-message" role="status"></p>
+
+    <section class="progress-summary card">
+      <div>
+        <p class="eyebrow" data-i18n="progressLatestCompletion">
+          LATEST REPORTED COMPLETION
+        </p>
+        <h2><span id="latestPercent">—</span><span class="percent-sign">%</span></h2>
+        <p id="latestSummary" data-i18n="progressChooseProject">
+          Choose a project to view its latest update.
+        </p>
+      </div>
+
+      <div class="progress-track" aria-label="Latest project completion">
+        <div id="progressBar" class="progress-fill"></div>
+      </div>
+    </section>
+
+    <div class="progress-columns">
+      <section class="card history-card">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-i18n="progressActivity">PROJECT ACTIVITY</p>
+            <h2 data-i18n="progressHistory">Update history</h2>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="progress-table">
+            <thead>
+              <tr>
+                <th data-i18n="date">Date</th>
+                <th data-i18n="progressCompletion">Completion</th>
+                <th data-i18n="progressSummary">Summary</th>
+                <th data-i18n="progressBlockers">Blockers</th>
+                <th data-i18n="progressReportedBy">Reported by</th>
+              </tr>
+            </thead>
+            <tbody id="historyRows">
+              <tr>
+                <td colspan="5" data-i18n="progressSelectToLoad">
+                  Select a project to load its updates.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="reportCard" class="card report-card">
+        <p class="eyebrow" data-i18n="progressAddUpdate">ADD AN UPDATE</p>
+        <h2 data-i18n="progressReport">Report progress</h2>
+        <p class="helper-text" data-i18n="progressSavedInHistory">
+          Your update will be saved in the project’s progress history.
+        </p>
+
+        <form id="progressForm">
+          <label for="percentComplete" data-i18n="progressPercentLabel">
+            Completion percentage
+          </label>
+          <input
+            id="percentComplete"
+            name="percent_complete"
+            type="number"
+            min="0"
+            max="100"
+            step="0.1"
+            required
+            placeholder="For example, 40"
+            data-i18n-placeholder="progressPercentPlaceholder"
+          >
+
+          <label for="summary" data-i18n="progressWorkCompleted">
+            Work completed
+          </label>
+          <textarea
+            id="summary"
+            name="summary"
+            rows="4"
+            maxlength="1000"
+            required
+            placeholder="Describe the work completed"
+            data-i18n-placeholder="progressWorkPlaceholder"
+          ></textarea>
+
+          <label for="blockers" data-i18n="progressBlockersOptional">
+            Blockers (optional)
+          </label>
+          <textarea
+            id="blockers"
+            name="blockers"
+            rows="3"
+            maxlength="1000"
+            placeholder="Describe any delays or issues"
+            data-i18n-placeholder="progressBlockersPlaceholder"
+          ></textarea>
+
+          <button class="submit-button" type="submit" data-i18n="progressSave">
+            Save progress update
+          </button>
+        </form>
+
+        <p id="formMessage" class="form-message" role="status"></p>
+      </section>
+    </div>
+  </main>
+
+  <script src="/js/app-language.js" defer></script>
+  <script src="/js/project-progress.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="contractPageTitle">Contracts | Construction PMS</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+
+  <style>
+    .contracts-page {
+      max-width: 1150px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .contract-card {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      margin: 20px 0;
+      padding: 24px;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 40, 55, 0.08);
+    }
+
+    .contract-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+    }
+
+    .contracts-page label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .contracts-page input,
+    .contracts-page select {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 1px solid #d5dce3;
+      border-radius: 8px;
+      background: white;
+    }
+
+    .contracts-page button {
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 0;
+      border-radius: 8px;
+      background: #e99424;
+      color: #17212b;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .contracts-page button.secondary {
+      background: #e9eef3;
+    }
+
+    .contract-table {
+      width: 100%;
+      min-width: 950px;
+      table-layout: fixed;
+      border-collapse: collapse;
+    }
+
+    .contract-table th,
+    .contract-table td {
+      padding: 12px;
+      border-bottom: 1px solid #e6ebf0;
+      text-align: left;
+      vertical-align: top;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .contract-message {
+      min-height: 24px;
+      font-weight: 600;
+    }
+
+    .contract-message.error {
+      color: #b42318;
+    }
+
+    .contract-message.success {
+      color: #18794e;
+    }
+
+    @media (max-width: 650px) {
+      .contracts-page {
+        margin: 16px auto;
+        padding: 14px;
+      }
+
+      .contract-card {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="contracts-page">
+    <a id="dashboardLink" href="/projects.html" data-i18n="contractBack">
+      ← Back to Projects
+    </a>
+
+    <header>
+      <h1 data-i18n="contractTitle">Construction Contracts</h1>
+      <p data-i18n="contractIntro">Manage project agreements and review their status.</p>
+    </header>
+
+    <p id="contractMessage" class="contract-message" role="status"></p>
+
+    <section id="contractFormCard" class="contract-card" hidden>
+      <h2 data-i18n="contractCreateTitle">Create a contract</h2>
+
+      <form id="contractForm">
+        <div class="contract-form-grid">
+          <div>
+            <label for="projectSelect" data-i18n="contractProjectLabel">Project *</label>
+            <select id="projectSelect" required>
+              <option value="" data-i18n="contractLoadingProjects">Loading projects...</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="contractorSelect" data-i18n="contractContractorLabel">Contractor *</label>
+            <select id="contractorSelect" required>
+              <option value="" data-i18n="contractLoadingContractors">Loading contractors...</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="contractNumber" data-i18n="contractNumberLabel">Contract number *</label>
+            <input id="contractNumber" type="text" maxlength="80" required>
+          </div>
+
+          <div>
+            <label for="startDate" data-i18n="contractStartDate">Start date</label>
+            <input id="startDate" type="date">
+          </div>
+
+          <div>
+            <label for="endDate" data-i18n="contractEndDate">End date</label>
+            <input id="endDate" type="date">
+          </div>
+
+          <div>
+            <label for="agreedAmount" data-i18n="contractAgreedAmount">Agreed amount *</label>
+            <input
+              id="agreedAmount"
+              type="number"
+              min="0"
+              max="1000000000"
+              step="0.01"
+              required
+            >
+          </div>
+
+          <div>
+            <label for="contractStatus" data-i18n="contractStatusLabel">Status</label>
+            <select id="contractStatus">
+              <option value="draft" data-i18n="contractDraft">Draft</option>
+              <option value="active" data-i18n="contractActive">Active</option>
+              <option value="completed" data-i18n="contractCompleted">Completed</option>
+              <option value="cancelled" data-i18n="contractCancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="saveContractButton" type="submit" data-i18n="contractSave">
+          Save Contract
+        </button>
+      </form>
+    </section>
+
+    <section class="contract-card">
+      <h2 data-i18n="contractRecordsTitle">Contract records</h2>
+      <div id="contractList" data-i18n="contractLoading">Loading contracts...</div>
+    </section>
+  </main>
+
+  <script src="/js/app-language.js" defer></script>
+  <script src="/js/contracts.js" defer></script>
+</body>
+</html>

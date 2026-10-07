@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | BuildTrack</title>
+
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <script src="/js/dashboard.js" defer></script>
+  <script src="/js/app-language.js" defer></script>
+</head>
+<body class="dashboard-page" data-role="admin">
+  <div class="dashboard-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">B</span>
+        <span>BuildTrack</span>
+      </a>
+
+      <nav class="sidebar-nav" aria-label="Admin navigation">
+        <a class="sidebar-link active" href="#overview">
+          <span class="nav-icon" aria-hidden="true">⌂</span>
+          <span data-i18n="overview">Overview</span>
+        </a>
+
+        <a class="sidebar-link" href="#registrations">
+          <span class="nav-icon" aria-hidden="true">◷</span>
+          <span data-i18n="pendingRegistrations">Pending registrations</span>
+        </a>
+
+        <a class="sidebar-link" href="#resources">
+          <span class="nav-icon" aria-hidden="true">▦</span>
+          <span data-i18n="resourcesSummary">Resources summary</span>
+        </a>
+
+        <a class="sidebar-link" href="/projects.html">
+          <span class="nav-icon" aria-hidden="true">▦</span>
+          <span data-i18n="allProjects">All projects</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer" data-i18n="constructionManagement">
+        Construction Project Management
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="topbar-title" data-i18n="adminWorkspace">Admin workspace</div>
+
+        <div class="user-chip">
+          <span id="currentUserName">Admin</span>
+          <span class="avatar" aria-hidden="true">A</span>
+          <details class="dashboard-menu">
+  <summary>
+    <span aria-hidden="true">⋮</span>
+    <span class="sr-only" data-i18n="morePages">More pages</span>
+  </summary>
+  <nav class="dashboard-menu-list">
+    <a href="/projects.html" data-i18n="projects">Projects</a>
+    <a href="/project-workers.html" data-i18n="assignmentTitle">Project Worker Assignments</a>
+    <a href="/project-progress.html" data-i18n="progressTitle">Project Progress</a>
+    <a href="/suppliers.html" data-i18n="supplierListTitle">Suppliers</a>
+    <a href="/materials.html" data-i18n="materialListTitle">Materials</a>
+    <a href="/purchases.html" data-i18n="purchaseTitle">Material Purchases</a>
+    <a href="/expenses.html" data-i18n="expenseTitle">Project Expenses</a>
+    <a href="/payments.html" data-i18n="paymentTitle">Project Payments</a>
+    <a href="/attendance.html" data-i18n="attendanceTitle">Project Attendance</a>
+    <a href="/contracts.html" data-i18n="contractTitle">Construction Contracts</a>
+    <a href="/managers.html" data-i18n="managerTitle">Manager Directory</a>
+  </nav>
+</details>
+          <button
+           
+            class="button"
+            id="logoutButton"
+            type="button"
+            data-i18n="logOut"
+          >Log out</button>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <div class="page-heading" id="overview">
+          <div>
+            <p class="eyebrow" data-i18n="projectControlCenter">PROJECT CONTROL CENTER</p>
+            <h1 data-i18n="adminDashboard">Admin dashboard</h1>
+            <p data-i18n="dashboardOverview">
+              Overview of projects, people, resources, expenses, and approvals.
+            </p>
+          </div>
+        </div>
+
+        <p id="dashboardMessage" class="loading-state" aria-live="polite" data-i18n="loadingDashboard">
+          Loading dashboard information…
+        </p>
+
+        <section
+          id="summaryCards"
+          class="metric-grid"
+          aria-label="Project summary"
+          data-i18n-aria-label="projectSummary"
+        >
+          <!-- Dashboard cards are filled from the Admin API. -->
+           
+        </section>
+        
+
+        <section class="panel" id="registrations">
+          <div class="panel-header">
+            <h2 data-i18n="pendingRegistrations">Pending registrations</h2>
+            <span class="badge" id="pendingCount" data-i18n="loading">Loading</span>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="name">Name</th>
+                  <th data-i18n="role">Role</th>
+                  <th data-i18n="email">Email</th>
+                  <th data-i18n="phone">Phone</th>
+                  <th data-i18n="action">Action</th>
+                </tr>
+              </thead>
+              <tbody id="pendingRegistrationsBody">
+                <tr>
+                  <td colspan="5" class="loading-state" data-i18n="loadingRegistrations">
+                    Loading registrations…
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel" id="resources">
+          <div class="panel-header">
+            <h2 data-i18n="resourceSnapshot">Resource snapshot</h2>
+          </div>
+          <div class="panel-body">
+            <p class="muted" data-i18n="resourceDescription">
+              The cards above show the current totals for contractors, workers,
+              suppliers, materials, and recorded expenses.
+            </p>
+          </div>
+
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

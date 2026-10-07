@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="managerPageTitle">Managers | Construction PMS</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+
+  <style>
+    .managers-page {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .manager-card {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      margin: 20px 0;
+      padding: 24px;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 40, 55, 0.08);
+    }
+
+    .manager-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+    }
+
+    .managers-page label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .managers-page input {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 1px solid #d5dce3;
+      border-radius: 8px;
+    }
+
+    .managers-page button {
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 0;
+      border-radius: 8px;
+      background: #e99424;
+      color: #17212b;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .managers-page button.secondary {
+      background: #e9eef3;
+    }
+
+    .manager-table {
+      width: 100%;
+      min-width: 800px;
+      table-layout: fixed;
+      border-collapse: collapse;
+    }
+
+    .manager-table th,
+    .manager-table td {
+      padding: 12px;
+      border-bottom: 1px solid #e6ebf0;
+      text-align: left;
+      vertical-align: top;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .manager-message {
+      min-height: 24px;
+      font-weight: 600;
+    }
+
+    .manager-message.error {
+      color: #b42318;
+    }
+
+    .manager-message.success {
+      color: #18794e;
+    }
+
+    @media (max-width: 650px) {
+      .managers-page {
+        margin: 16px auto;
+        padding: 14px;
+      }
+
+      .manager-card {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="managers-page">
+    <a href="/admin/dashboard.html" data-i18n="managerBack">
+      ← Back to Admin Dashboard
+    </a>
+
+    <header>
+      <h1 data-i18n="managerTitle">Manager Directory</h1>
+      <p data-i18n="managerIntro">Add staff Managers and see the projects assigned to them.</p>
+    </header>
+
+    <p id="managerMessage" class="manager-message" role="status"></p>
+
+    <section class="manager-card">
+      <h2 data-i18n="managerAddTitle">Add a Manager</h2>
+
+      <form id="managerForm">
+        <div class="manager-form-grid">
+          <div>
+            <label for="fullName" data-i18n="managerFullName">Full name *</label>
+            <input id="fullName" type="text" maxlength="120" required>
+          </div>
+
+          <div>
+            <label for="email" data-i18n="managerEmail">Email *</label>
+            <input id="email" type="email" maxlength="254" required>
+          </div>
+
+          <div>
+            <label for="phone" data-i18n="managerPhone">Phone</label>
+            <input id="phone" type="tel" maxlength="30">
+          </div>
+
+          <div>
+            <label for="employeeCode" data-i18n="managerEmployeeCode">Employee code</label>
+            <input id="employeeCode" type="text" maxlength="40">
+          </div>
+        </div>
+
+        <button id="saveManagerButton" type="submit" data-i18n="managerAddButton">
+          Add Manager
+        </button>
+      </form>
+    </section>
+
+    <section class="manager-card">
+      <h2 data-i18n="managerListTitle">Managers</h2>
+      <div id="managerList" data-i18n="managerLoading">Loading Managers...</div>
+    </section>
+  </main>
+
+  <script src="/js/app-language.js" defer></script>
+  <script src="/js/managers.js" defer></script>
+</body>
+</html>

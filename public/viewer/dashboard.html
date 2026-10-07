@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registered User Dashboard | BuildTrack</title>
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <script src="/js/viewer-dashboard.js" defer></script>
+</head>
+<body class="dashboard-page">
+  <div class="dashboard-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true">B</span><span>BuildTrack</span></a>
+      <nav class="sidebar-nav" aria-label="Viewer navigation">
+        <a class="sidebar-link active" href="#overview">Overview</a>
+        <a class="sidebar-link" href="/projects.html">Project details</a>
+      </nav>
+      <div class="sidebar-footer">Read-only project access</div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar">
+        <div class="topbar-title">Registered User workspace</div>
+        <div class="user-chip"><span id="viewerName">User</span><button class="button" id="logoutButton" type="button">Log out</button></div>
+      </header>
+      <div class="page-content">
+        <div class="page-heading" id="overview">
+          <div><p class="eyebrow">PROJECT OVERVIEW</p><h1>Dashboard</h1><p>View project summaries and details. This account cannot make changes.</p></div>
+        </div>
+        <p id="dashboardMessage" class="loading-state" aria-live="polite">Loading dashboard…</p>
+        <section id="summaryCards" class="metric-grid" aria-label="Project summary"></section>
+        <section class="panel">
+          <h2>Projects</h2>
+          <p>Open the project list to view project details and progress.</p>
+          <a class="button button-primary" href="/projects.html">View projects</a>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

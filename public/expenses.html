@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="expensePageTitle">Project Expenses | Construction PMS</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+
+  <style>
+    #expenseList {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    }
+
+    .expense-table {
+    width: 100%;
+    min-width: 850px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    }
+
+    .expense-table th,
+    .expense-table td {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.4;
+    }
+    .expenses-page {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .expense-card {
+      box-sizing: border-box;
+      max-width: 100%;
+      overflow-x: auto;
+      margin: 20px 0;
+      padding: 24px;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 40, 55, 0.08);
+    }
+
+    .expense-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+    }
+
+    .expenses-page label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .expenses-page input,
+    .expenses-page select,
+    .expenses-page textarea {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 1px solid #d5dce3;
+      border-radius: 8px;
+      background: white;
+    }
+
+    .expenses-page textarea {
+      min-height: 82px;
+      resize: vertical;
+    }
+
+    .expenses-page button {
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 0;
+      border-radius: 8px;
+      background: #e99424;
+      color: #17212b;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .expense-table {
+      width: 100%;
+      min-width: 780px;
+      table-layout: fixed;
+      border-collapse: collapse;
+    }
+
+    .expense-table th,
+    .expense-table td {
+      padding: 12px;
+      border-bottom: 1px solid #e6ebf0;
+      text-align: left;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .expense-message {
+      min-height: 24px;
+      font-weight: 600;
+    }
+
+    .expense-message.error {
+      color: #b42318;
+    }
+
+    .expense-message.success {
+      color: #18794e;
+    }
+
+    @media (max-width: 650px) {
+      .expenses-page {
+        margin: 16px auto;
+        padding: 14px;
+      }
+
+      .expense-card {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="expenses-page">
+    <a id="dashboardLink" href="/projects.html" data-i18n="expenseBack">
+      ← Back to Projects
+    </a>
+
+    <header>
+      <h1 data-i18n="expenseTitle">Project Expenses</h1>
+      <p data-i18n="expenseIntro">Record and review expenses for construction projects.</p>
+    </header>
+
+    <p id="expenseMessage" class="expense-message" role="status"></p>
+
+    <section class="expense-card">
+      <h2 data-i18n="expenseRecordTitle">Record an expense</h2>
+
+      <form id="expenseForm">
+        <div class="expense-form-grid">
+          <div>
+            <label for="projectSelect" data-i18n="expenseProjectLabel">Project *</label>
+            <select id="projectSelect" required>
+              <option value="" data-i18n="expenseLoadingProjects">Loading projects...</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="category" data-i18n="expenseCategoryLabel">Category *</label>
+            <select id="category" required>
+              <option value="" data-i18n="expenseChooseCategory">Choose a category</option>
+              <option value="Labor" data-i18n="expenseLabor">Labor</option>
+              <option value="Materials" data-i18n="expenseMaterials">Materials</option>
+              <option value="Equipment" data-i18n="expenseEquipment">Equipment</option>
+              <option value="Transport" data-i18n="expenseTransport">Transport</option>
+              <option value="Utilities" data-i18n="expenseUtilities">Utilities</option>
+              <option value="Permits" data-i18n="expensePermits">Permits</option>
+              <option value="Other" data-i18n="expenseOther">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="amount" data-i18n="expenseAmountLabel">Amount *</label>
+            <input
+              id="amount"
+              type="number"
+              min="0"
+              max="1000000000"
+              step="0.01"
+              required
+            >
+          </div>
+
+          <div>
+            <label for="expenseDate" data-i18n="expenseDateLabel">Expense date</label>
+            <input id="expenseDate" type="date">
+          </div>
+
+          <div>
+            <label for="description" data-i18n="expenseDescriptionLabel">Description</label>
+            <textarea id="description" maxlength="500"></textarea>
+          </div>
+        </div>
+
+        <button id="saveExpenseButton" type="submit" data-i18n="expenseSave">
+          Save Expense
+        </button>
+      </form>
+    </section>
+
+    <section class="expense-card">
+      <h2 data-i18n="expenseHistoryTitle">Expense history</h2>
+      <div id="expenseList" data-i18n="expenseLoading">Loading expenses...</div>
+    </section>
+  </main>
+
+  <script src="/js/app-language.js" defer></script>
+  <script src="/js/expenses.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suppliers | Construction PMS</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+
+  <style>
+    .suppliers-page {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .supplier-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px;
+      margin: 20px 0;
+      box-shadow: 0 8px 24px rgba(25, 40, 55, 0.08);
+    }
+
+    .supplier-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+    }
+
+    .supplier-form label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .supplier-form input,
+    .supplier-form textarea {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 1px solid #d5dce3;
+      border-radius: 8px;
+    }
+
+    .supplier-form textarea {
+      min-height: 82px;
+      resize: vertical;
+    }
+
+    .supplier-page button {
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 0;
+      border-radius: 8px;
+      background: #e99424;
+      color: #17212b;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .supplier-page button.secondary {
+      background: #e9eef3;
+    }
+
+    .supplier-page button.danger {
+      background: #fce4e4;
+      color: #9b2222;
+    }
+
+   .supplier-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-top: 12px;
+    }
+
+    .supplier-table th,
+    .supplier-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e6ebf0;
+    text-align: left;
+    vertical-align: top;
+     white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    }
+
+    .supplier-message {
+      min-height: 24px;
+      font-weight: 600;
+    }
+
+    .supplier-message.error {
+      color: #b42318;
+    }
+
+    .supplier-message.success {
+      color: #18794e;
+    }
+
+    @media (max-width: 650px) {
+      .suppliers-page {
+        margin: 16px auto;
+        padding: 14px;
+      }
+
+      .supplier-card {
+        padding: 16px;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="suppliers-page supplier-page">
+    <a id="dashboardLink" href="/projects.html" data-i18n="supplierBack">
+      ← Back to Projects
+    </a>
+
+    <header>
+      <h1 data-i18n="supplierTitle">Supplier Directory</h1>
+      <p data-i18n="supplierIntro">View and manage the shared supplier catalog.</p>
+    </header>
+
+    <p id="supplierMessage" class="supplier-message" role="status"></p>
+
+    <section id="supplierFormCard" class="supplier-card" hidden>
+      <h2 id="formHeading" data-i18n="supplierAdd">Add a supplier</h2>
+
+      <form id="supplierForm" class="supplier-form">
+        <div>
+          <label for="supplierName" data-i18n="supplierNameLabel">Supplier name *</label>
+          <input id="supplierName" type="text" maxlength="150" required>
+        </div>
+
+        <div>
+          <label for="contactPerson" data-i18n="supplierContactLabel">Contact person</label>
+          <input id="contactPerson" type="text" maxlength="120">
+        </div>
+
+        <div>
+          <label for="supplierPhone" data-i18n="supplierPhoneLabel">Phone</label>
+          <input id="supplierPhone" type="tel" maxlength="30">
+        </div>
+
+        <div>
+          <label for="supplierEmail" data-i18n="supplierEmailLabel">Email</label>
+          <input id="supplierEmail" type="email" maxlength="254">
+        </div>
+
+        <div>
+          <label for="supplierAddress" data-i18n="supplierAddressLabel">Address</label>
+          <textarea id="supplierAddress" maxlength="500"></textarea>
+        </div>
+
+        <div>
+          <button id="saveSupplierButton" type="submit" data-i18n="supplierSave">
+            Save Supplier
+          </button>
+          <button id="cancelEditButton" class="secondary" type="button" hidden
+                  data-i18n="supplierCancelEdit">
+            Cancel edit
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <section class="supplier-card">
+      <h2 data-i18n="supplierListTitle">Suppliers</h2>
+      <div id="supplierList" data-i18n="supplierLoading">Loading suppliers...</div>
+    </section>
+  </main>
+
+  <script src="/js/app-language.js" defer></script>
+  <script src="/js/suppliers.js" defer></script>
+</body>
+</html>

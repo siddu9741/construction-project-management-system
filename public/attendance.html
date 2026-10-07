@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="attendancePageTitle">Attendance | Construction PMS</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+
+  <style>
+    .attendance-page {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .attendance-card {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      margin: 20px 0;
+      padding: 24px;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 40, 55, 0.08);
+    }
+
+    .attendance-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      align-items: end;
+    }
+
+    .attendance-page label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .attendance-page input,
+    .attendance-page select {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 40px;
+      padding: 8px 10px;
+      border: 1px solid #d5dce3;
+      border-radius: 8px;
+      background: white;
+    }
+
+    .attendance-page button {
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 0;
+      border-radius: 8px;
+      background: #e99424;
+      color: #17212b;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .attendance-page button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #attendanceHistory {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+    #attendanceHistory .attendance-table {
+    width: 100%;
+    min-width: 850px;
+    table-layout: fixed;
+    }
+
+    #attendanceHistory .attendance-table th,
+    #attendanceHistory .attendance-table td {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    }
+
+    .attendance-table {
+      width: 100%;
+      min-width: 850px;
+      table-layout: fixed;
+      border-collapse: collapse;
+    }
+
+    .attendance-table th,
+    .attendance-table td {
+      padding: 10px;
+      border-bottom: 1px solid #e6ebf0;
+      text-align: left;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+
+    .attendance-message {
+      min-height: 24px;
+      font-weight: 600;
+    }
+
+    .attendance-message.error {
+      color: #b42318;
+    }
+
+    .attendance-message.success {
+      color: #18794e;
+    }
+
+    @media (max-width: 650px) {
+      .attendance-page {
+        margin: 16px auto;
+        padding: 14px;
+      }
+
+      .attendance-card {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="attendance-page">
+    <a id="dashboardLink" href="/projects.html" data-i18n="attendanceBack">
+      ← Back to Projects
+    </a>
+
+    <header>
+      <h1 data-i18n="attendanceTitle">Project Attendance</h1>
+      <p data-i18n="attendanceIntro">
+        Record attendance for assigned Workers or review your own history.
+      </p>
+    </header>
+
+    <p id="attendanceMessage" class="attendance-message" role="status"></p>
+
+    <section id="attendanceManageCard" class="attendance-card" hidden>
+      <h2 data-i18n="attendanceRecordTitle">Record attendance</h2>
+
+      <div class="attendance-controls">
+        <div>
+          <label for="projectSelect" data-i18n="attendanceProjectLabel">Project</label>
+          <select id="projectSelect">
+            <option value="" data-i18n="attendanceLoadingProjects">Loading projects...</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="attendanceDate" data-i18n="attendanceDateLabel">Attendance date</label>
+          <input id="attendanceDate" type="date">
+        </div>
+
+        <button id="loadWorkersButton" type="button" data-i18n="attendanceLoadWorkers">
+          Load assigned Workers
+        </button>
+      </div>
+
+      <div id="workerAttendanceList" style="margin-top: 20px;"
+           data-i18n="attendanceChooseProject">
+        Choose a project and date to load assigned Workers.
+      </div>
+    </section>
+
+    <section class="attendance-card">
+      <h2 id="historyHeading" data-i18n="attendanceHistoryTitle">Attendance history</h2>
+      <div id="attendanceHistory" data-i18n="attendanceLoading">Loading attendance...</div>
+    </section>
+  </main>
+
+  <script src="/js/app-language.js" defer></script>
+  <script src="/js/attendance.js" defer></script>
+</body>
+</html>

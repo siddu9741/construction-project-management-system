@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worker Dashboard | BuildTrack</title>
+
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <script src="/js/dashboard.js" defer></script>
+  <script src="/js/app-language.js" defer></script>
+</head>
+<body class="dashboard-page" data-role="worker">
+  <div class="dashboard-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">B</span>
+        <span>BuildTrack</span>
+      </a>
+
+      <nav class="sidebar-nav" aria-label="Worker navigation">
+        <a class="sidebar-link active" href="#overview">
+          <span class="nav-icon" aria-hidden="true">⌂</span>
+          <span data-i18n="overview">Overview</span>
+        </a>
+
+        <a class="sidebar-link" href="#assignments">
+          <span class="nav-icon" aria-hidden="true">▦</span>
+          <span data-i18n="myWork">My work</span>
+        </a>
+
+        <a class="sidebar-link" href="#attendance">
+          <span class="nav-icon" aria-hidden="true">◷</span>
+          <span data-i18n="attendanceNav">Attendance</span>
+        </a>
+
+        <a class="sidebar-link" href="#payments">
+          <span class="nav-icon" aria-hidden="true">₹</span>
+          <span data-i18n="paymentsNav">Payments</span>
+        </a>
+
+        <a class="sidebar-link" href="/projects.html">
+          <span class="nav-icon" aria-hidden="true">▦</span>
+          <span data-i18n="myProjects">Assigned projects</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer" data-i18n="workerWorkspace">
+        Worker workspace
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="topbar-title" data-i18n="workerWorkspace">Worker workspace</div>
+
+        <div class="user-chip">
+          <span id="currentUserName">Worker</span>
+          <span class="avatar" aria-hidden="true">W</span>
+          <details class="dashboard-menu">
+  <summary>
+    <span aria-hidden="true">⋮</span>
+    <span class="sr-only" data-i18n="morePages">More pages</span>
+  </summary>
+  <nav class="dashboard-menu-list">
+    <a href="/projects.html" data-i18n="projects">Projects</a>
+    <a href="/project-workers.html" data-i18n="assignmentTitle">Project Worker Assignments</a>
+    <a href="/project-progress.html" data-i18n="progressTitle">Project Progress</a>
+    <a href="/suppliers.html" data-i18n="supplierListTitle">Suppliers</a>
+    <a href="/materials.html" data-i18n="materialListTitle">Materials</a>
+    <a href="/purchases.html" data-i18n="purchaseTitle">Material Purchases</a>
+    <a href="/expenses.html" data-i18n="expenseTitle">Project Expenses</a>
+    <a href="/payments.html" data-i18n="paymentTitle">Project Payments</a>
+    <a href="/attendance.html" data-i18n="attendanceTitle">Project Attendance</a>
+    <a href="/contracts.html" data-i18n="contractTitle">Construction Contracts</a>
+  </nav>
+</details>
+          <button class="button" id="logoutButton" type="button" data-i18n="logOut">
+            Log out
+          </button>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <div class="page-heading" id="overview">
+          <div>
+            <p class="eyebrow" data-i18n="yourSiteWorkspace">YOUR SITE WORKSPACE</p>
+            <h1 data-i18n="workerDashboard">Worker dashboard</h1>
+            <p data-i18n="workerIntro">
+              View your assignments, attendance, and personal payment records.
+            </p>
+          </div>
+        </div>
+
+        <p id="dashboardMessage" class="loading-state" aria-live="polite" data-i18n="loadingDashboard">
+          Loading dashboard information…
+        </p>
+
+        <section id="summaryCards" class="metric-grid" aria-label="Worker summary">
+          <!-- Dashboard cards are filled from the Worker API. -->
+           
+        </section>
+        <section class="panel" id="workspacePages">
+  <div class="panel-header">
+    <h2 data-i18n="workspacePages">Workspace pages</h2>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th data-i18n="module">Module</th>
+          <th data-i18n="openPage">Open</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td data-i18n="projects">Projects</td><td><a href="/projects.html" data-i18n="openPage">Open</a></td></tr>
+        <tr><td data-i18n="progressTitle">Project Progress</td><td><a href="/project-progress.html" data-i18n="openPage">Open</a></td></tr>
+        <tr><td data-i18n="attendanceTitle">Project Attendance</td><td><a href="/attendance.html" data-i18n="openPage">Open</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+        <section class="panel" id="assignments">
+          <div class="panel-header">
+            <h2 data-i18n="assignedWorkDetails">Assigned projects and work details</h2>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="project">Project</th>
+                  <th data-i18n="workDetails">Work details</th>
+                  <th data-i18n="manager">Manager</th>
+                  <th data-i18n="location">Location</th>
+                  <th data-i18n="status">Status</th>
+                </tr>
+              </thead>
+              <tbody id="assignedProjectsBody">
+                <tr>
+                  <td colspan="5" class="loading-state" data-i18n="loadingAssignments">
+                    Loading assignments…
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel" id="attendance">
+          <div class="panel-header">
+            <h2 data-i18n="recentAttendance">Recent attendance</h2>
+            <span class="muted" data-i18n="latest10Records">Latest 10 records</span>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="date">Date</th>
+                  <th data-i18n="project">Project</th>
+                  <th data-i18n="status">Status</th>
+                  <th data-i18n="checkIn">Check-in</th>
+                  <th data-i18n="checkOut">Check-out</th>
+                </tr>
+              </thead>
+              <tbody id="workerAttendanceBody">
+                <tr>
+                  <td colspan="5" class="loading-state" data-i18n="loadingAttendance">
+                    Loading attendance…
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel" id="payments">
+          <div class="panel-header">
+            <h2 data-i18n="personalPaymentInformation">Personal payment information</h2>
+            <span class="muted" data-i18n="latest10Records">Latest 10 records</span>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="project">Project</th>
+                  <th data-i18n="paymentDate">Payment date</th>
+                  <th data-i18n="period">Period</th>
+                  <th data-i18n="amount">Amount</th>
+                  <th data-i18n="status">Status</th>
+                </tr>
+              </thead>
+              <tbody id="workerPaymentsBody">
+                <tr>
+                  <td colspan="5" class="loading-state" data-i18n="loadingPayments">
+                    Loading payments…
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

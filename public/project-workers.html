@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="assignmentPageTitle">Project Workers | Construction PMS</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+
+  <style>
+    .assignment-page {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .assignment-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px;
+      margin: 20px 0;
+      box-shadow: 0 8px 24px rgba(25, 40, 55, 0.08);
+    }
+
+    .assignment-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      align-items: end;
+    }
+
+    .assignment-page label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .assignment-page select,
+    .assignment-page input {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid #d5dce3;
+      border-radius: 8px;
+      background: white;
+    }
+
+    .assignment-page button {
+      min-height: 42px;
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 8px;
+      background: #e99424;
+      color: #17212b;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .assignment-page button:hover {
+      filter: brightness(0.95);
+    }
+
+    .assignment-page button.secondary {
+      background: #e9eef3;
+    }
+
+    .assignment-page button.danger {
+      background: #fce4e4;
+      color: #9b2222;
+    }
+
+    .assignment-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    .assignment-table th,
+    .assignment-table td {
+      padding: 12px;
+      border-bottom: 1px solid #e6ebf0;
+      text-align: left;
+    }
+
+    .assignment-message {
+      min-height: 24px;
+      margin: 12px 0;
+      font-weight: 600;
+    }
+
+    .assignment-message.error {
+      color: #b42318;
+    }
+
+    .assignment-message.success {
+      color: #18794e;
+    }
+
+    @media (max-width: 600px) {
+      .assignment-page {
+        margin: 16px auto;
+        padding: 14px;
+      }
+
+      .assignment-card {
+        padding: 16px;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="assignment-page">
+    <a href="/projects.html" data-i18n="assignmentBack">← Back to Projects</a>
+
+    <header>
+      <h1 data-i18n="assignmentTitle">Project Worker Assignments</h1>
+      <p data-i18n="assignmentIntro">
+        Assign approved Workers to projects you are allowed to manage.
+      </p>
+    </header>
+
+    <p id="pageMessage" class="assignment-message" role="status"></p>
+
+    <section class="assignment-card">
+      <h2 data-i18n="assignmentSelectProject">Select a project</h2>
+      <div class="assignment-controls">
+        <div>
+          <label for="projectSelect" data-i18n="assignmentProjectLabel">Project</label>
+          <select id="projectSelect">
+            <option value="" data-i18n="assignmentLoadingProjects">
+              Loading your projects...
+            </option>
+          </select>
+        </div>
+        <button id="loadProjectButton" type="button" class="secondary"
+                data-i18n="assignmentLoadWorkers">
+          Load Workers
+        </button>
+      </div>
+    </section>
+
+    <section class="assignment-card">
+      <h2 data-i18n="assignmentAddTitle">Assign an approved Worker</h2>
+      <form id="assignForm" class="assignment-controls">
+        <div>
+          <label for="workerSelect" data-i18n="assignmentAvailableWorker">
+            Available Worker
+          </label>
+          <select id="workerSelect" required>
+            <option value="" data-i18n="assignmentChooseProjectFirst">
+              Select a project first
+            </option>
+          </select>
+        </div>
+
+        <div>
+          <label for="jobTitle" data-i18n="assignmentJobTitle">
+            Work role on this project (optional)
+          </label>
+          <input
+            id="jobTitle"
+            type="text"
+            maxlength="100"
+            placeholder="Example: Mason"
+            data-i18n-placeholder="assignmentJobPlaceholder"
+          >
+        </div>
+
+        <button type="submit" data-i18n="assignmentAssignButton">
+          Assign Worker
+        </button>
+      </form>
+    </section>
+
+    <section class="assignment-card">
+      <h2 data-i18n="assignmentCurrentTitle">Currently assigned Workers</h2>
+      <div id="assignedWorkers" data-i18n="assignmentChooseProject">
+        Select a project to view its assigned Workers.
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/app-language.js" defer></script>
+  <script src="/js/project-workers.js" defer></script>
+</body>
+</html>

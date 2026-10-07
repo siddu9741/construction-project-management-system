@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | BuildTrack</title>
+
+  <link rel="stylesheet" href="/css/dashboard.css">
+
+  <style>
+    .app-language-picker select {
+      width: auto;
+      min-width: 105px;
+      padding: 8px 10px;
+      border: 1px solid #d5dce3;
+      border-radius: 8px;
+      background: #fff;
+      color: #172b3a;
+      font: inherit;
+    }
+  </style>
+
+  <script src="/js/project-management.js" defer></script>
+  <script src="/js/app-language.js" defer></script>
+</head>
+<body class="dashboard-page">
+  <div class="dashboard-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">B</span>
+        <span>BuildTrack</span>
+      </a>
+
+      <nav class="sidebar-nav" aria-label="Project navigation">
+        <a class="sidebar-link" id="dashboardLink" href="#">
+          <span class="nav-icon" aria-hidden="true">⌂</span>
+          <span data-i18n="myDashboard">My dashboard</span>
+        </a>
+
+        <a class="sidebar-link active" href="/projects.html">
+          <span class="nav-icon" aria-hidden="true">▦</span>
+          <span data-i18n="projects">Projects</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer" data-i18n="constructionManagement">
+        Construction Project Management
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="topbar-title" data-i18n="workspace">Project workspace</div>
+
+        <div class="user-chip">
+          
+
+          <span id="projectUserName">User</span>
+          <span class="avatar" aria-hidden="true">P</span>
+          <button
+            class="button"
+            id="projectLogoutButton"
+            type="button"
+            data-i18n="logOut"
+          >Log out</button>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow" data-i18n="projectManagement">PROJECT MANAGEMENT</p>
+            <h1 data-i18n="projects">Projects</h1>
+            <p id="projectRoleDescription" data-i18n="loadingAccess">
+              Loading your project access…
+            </p>
+          </div>
+
+          <button
+            class="button button-primary"
+            id="addProjectButton"
+            type="button"
+            data-i18n="addProject"
+            hidden
+          >+ Add project</button>
+        </div>
+
+        <p id="projectPageMessage" class="loading-state" aria-live="polite" data-i18n="loadingProjects">
+          Loading projects…
+        </p>
+
+        <section class="panel">
+          <div class="project-toolbar">
+            <label class="project-search">
+              <span data-i18n="search">Search</span>
+              <input
+                id="projectSearch"
+                type="search"
+                placeholder="Name, code, client, or location"
+                data-i18n-placeholder="searchPlaceholder"
+              >
+            </label>
+
+            <label class="project-filter">
+              <span data-i18n="status">Status</span>
+              <select id="projectStatusFilter">
+                <option value="" data-i18n="allStatuses">All statuses</option>
+                <option value="Not Started" data-i18n="notStarted">Not Started</option>
+                <option value="In Progress" data-i18n="inProgress">In Progress</option>
+                <option value="On Hold" data-i18n="onHold">On Hold</option>
+                <option value="Completed" data-i18n="completed">Completed</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th data-i18n="id">ID</th>
+                  <th data-i18n="code">Code</th>
+                  <th data-i18n="projectClient">Project / Client</th>
+                  <th data-i18n="manager">Manager</th>
+                  <th data-i18n="status">Status</th>
+                  <th data-i18n="progress">Progress</th>
+                  <th data-i18n="actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="projectsTableBody">
+                <tr>
+                  <td colspan="7" class="loading-state" data-i18n="loadingProjects">
+                    Loading projects…
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <dialog id="projectFormDialog" class="app-dialog">
+    <div class="dialog-header">
+      <div>
+        <p class="eyebrow" data-i18n="projectDetails">PROJECT DETAILS</p>
+        <h2 id="projectFormTitle" data-i18n="addProjectTitle">Add project</h2>
+      </div>
+      <button class="button" type="button" data-close-dialog="projectFormDialog" data-i18n="close">
+        Close
+      </button>
+    </div>
+
+    <form id="projectForm" class="project-form">
+      <input id="projectId" type="hidden">
+
+      <label>
+        <span data-i18n="projectCode">Project code</span>
+        <input id="projectCode" maxlength="30" required>
+      </label>
+
+      <label>
+        <span data-i18n="projectName">Project name</span>
+        <input id="projectName" maxlength="150" required>
+      </label>
+
+      <label>
+        <span data-i18n="clientName">Client name</span>
+        <input id="clientName" maxlength="150" required>
+      </label>
+
+      <label>
+        <span data-i18n="location">Location</span>
+        <input id="projectLocation" maxlength="200" required>
+      </label>
+
+      <label>
+        <span data-i18n="manager">Manager</span>
+        <select id="managerId">
+          <option value="" data-i18n="noManager">No Manager assigned</option>
+        </select>
+      </label>
+
+      <label>
+        <span data-i18n="startDate">Start date</span>
+        <input id="startDate" type="date">
+      </label>
+
+      <label>
+        <span data-i18n="expectedCompletion">Expected completion date</span>
+        <input id="expectedEndDate" type="date">
+      </label>
+
+      <label>
+        <span data-i18n="budget">Budget (₹)</span>
+        <input id="projectBudget" type="number" min="0" step="0.01" required>
+      </label>
+
+      <label>
+        <span data-i18n="status">Status</span>
+        <select id="projectStatus" required>
+          <option value="Not Started" data-i18n="notStarted">Not Started</option>
+          <option value="In Progress" data-i18n="inProgress">In Progress</option>
+          <option value="On Hold" data-i18n="onHold">On Hold</option>
+          <option value="Completed" data-i18n="completed">Completed</option>
+        </select>
+      </label>
+
+      <label>
+        <span data-i18n="progressPercent">Progress (%)</span>
+        <input id="progressPercent" type="number" min="0" max="100" step="1" value="0" required>
+      </label>
+
+      <label class="full-width">
+        <span data-i18n="description">Description</span>
+        <textarea id="projectDescription" rows="4" maxlength="2000"></textarea>
+      </label>
+
+      <p id="projectFormMessage" class="form-message full-width" aria-live="polite"></p>
+
+      <div class="dialog-actions full-width">
+        <button class="button" type="button" data-close-dialog="projectFormDialog" data-i18n="cancel">
+          Cancel
+        </button>
+        <button class="button button-primary" id="saveProjectButton" type="submit" data-i18n="saveProject">
+          Save project
+        </button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="projectDetailsDialog" class="app-dialog">
+    <div class="dialog-header">
+      <div>
+        <p class="eyebrow" data-i18n="projectOverview">PROJECT OVERVIEW</p>
+        <h2 data-i18n="projectDetailsTitle">Project details</h2>
+      </div>
+      <button class="button" type="button" data-close-dialog="projectDetailsDialog" data-i18n="close">
+        Close
+      </button>
+    </div>
+
+    <div id="projectDetailsContent" class="project-details-content"></div>
+  </dialog>
+</body>
+</html>

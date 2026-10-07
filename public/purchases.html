@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="purchasePageTitle">Material Purchases | Construction PMS</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+
+  <style>
+    .purchases-page {
+      max-width: 1150px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .purchase-card {
+      margin: 20px 0;
+      padding: 24px;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 40, 55, 0.08);
+    }
+
+    .purchase-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+    }
+
+    .purchases-page label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .purchases-page input,
+    .purchases-page select {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 1px solid #d5dce3;
+      border-radius: 8px;
+      background: white;
+    }
+
+    .purchases-page button {
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 0;
+      border-radius: 8px;
+      background: #e99424;
+      color: #17212b;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .purchases-page button.secondary {
+      background: #e9eef3;
+    }
+
+    .purchase-items {
+      display: grid;
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .purchase-item-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr auto;
+      gap: 12px;
+      align-items: end;
+      padding: 14px;
+      border: 1px solid #e6ebf0;
+      border-radius: 10px;
+    }
+
+    .purchase-table {
+    width: 100%;
+    min-width: 760px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    }
+
+    .purchase-table th,
+    .purchase-table td {
+        padding: 12px;
+        border-bottom: 1px solid #e6ebf0;
+        text-align: left;
+        vertical-align: top;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    .purchase-message {
+      min-height: 24px;
+      font-weight: 600;
+    }
+
+    .purchase-message.error {
+      color: #b42318;
+    }
+
+    .purchase-message.success {
+      color: #18794e;
+    }
+
+    #purchaseList,
+    #purchaseDetails {
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow-x: auto;
+    }
+
+    .purchase-total {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 700px) {
+      .purchases-page {
+        margin: 16px auto;
+        padding: 14px;
+      }
+
+      .purchase-card {
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: auto;
+        padding: 16px;
+        overflow-x: auto;
+      }
+
+      .purchase-item-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="purchases-page">
+    <a id="dashboardLink" href="/projects.html" data-i18n="purchaseBack">
+      ← Back to Projects
+    </a>
+
+    <header>
+      <h1 data-i18n="purchaseTitle">Material Purchases</h1>
+      <p data-i18n="purchaseIntro">Record materials purchased for a project.</p>
+    </header>
+
+    <p id="purchaseMessage" class="purchase-message" role="status"></p>
+
+    <section class="purchase-card">
+      <h2 data-i18n="purchaseRecordTitle">Record a purchase</h2>
+
+      <form id="purchaseForm">
+        <div class="purchase-form-grid">
+          <div>
+            <label for="projectSelect" data-i18n="purchaseProjectLabel">Project *</label>
+            <select id="projectSelect" required>
+              <option value="" data-i18n="purchaseLoadingProjects">Loading projects...</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="supplierSelect" data-i18n="purchaseSupplierLabel">Supplier *</label>
+            <select id="supplierSelect" required>
+              <option value="" data-i18n="purchaseLoadingSuppliers">Loading suppliers...</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="purchaseDate" data-i18n="purchaseDateLabel">Purchase date</label>
+            <input id="purchaseDate" type="date">
+          </div>
+
+          <div>
+            <label for="invoiceNumber" data-i18n="purchaseInvoiceLabel">Invoice number</label>
+            <input id="invoiceNumber" type="text" maxlength="100">
+          </div>
+
+          <div>
+            <label for="purchaseStatus" data-i18n="purchaseStatusLabel">Status</label>
+            <select id="purchaseStatus">
+              <option value="requested" data-i18n="purchaseRequested">Requested</option>
+              <option value="ordered" data-i18n="purchaseOrdered">Ordered</option>
+              <option value="received" data-i18n="purchaseReceived">Received</option>
+              <option value="cancelled" data-i18n="purchaseCancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <h3 data-i18n="purchaseItemsTitle">Material items</h3>
+        <div id="purchaseItems" class="purchase-items"></div>
+
+        <button id="addItemButton" type="button" class="secondary"
+                data-i18n="purchaseAddItem">
+          + Add material item
+        </button>
+
+        <p class="purchase-total">
+          <span data-i18n="purchaseTotal">Total:</span>
+          <span id="purchaseTotal">0.00</span>
+        </p>
+
+        <button id="savePurchaseButton" type="submit" data-i18n="purchaseSave">
+          Save Purchase
+        </button>
+      </form>
+    </section>
+
+    <section class="purchase-card">
+      <h2 data-i18n="purchaseHistoryTitle">Purchase history</h2>
+      <div id="purchaseList" data-i18n="purchaseLoading">Loading purchases...</div>
+    </section>
+
+    <section id="purchaseDetailsCard" class="purchase-card" hidden>
+      <h2 data-i18n="purchaseDetailsTitle">Purchase details</h2>
+      <div id="purchaseDetails"></div>
+    </section>
+  </main>
+
+  <script src="/js/app-language.js" defer></script>
+  <script src="/js/purchases.js" defer></script>
+</body>
+</html>

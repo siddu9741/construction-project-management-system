@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="paymentPageTitle">Project Payments | Construction PMS</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+
+  <style>
+    .payments-page {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 24px;
+    }
+
+    .payment-card {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      margin: 20px 0;
+      padding: 24px;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(25, 40, 55, 0.08);
+    }
+
+    .payment-form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+    }
+
+    .payments-page label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .payments-page input,
+    .payments-page select {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 1px solid #d5dce3;
+      border-radius: 8px;
+      background: white;
+    }
+
+    .payments-page button {
+      min-height: 40px;
+      padding: 9px 14px;
+      border: 0;
+      border-radius: 8px;
+      background: #e99424;
+      color: #17212b;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .payments-page button.secondary {
+      background: #e9eef3;
+    }
+
+    .payment-table {
+      width: 100%;
+      min-width: 850px;
+      table-layout: fixed;
+      border-collapse: collapse;
+    }
+
+    .payment-table th,
+    .payment-table td {
+      padding: 12px;
+      border-bottom: 1px solid #e6ebf0;
+      text-align: left;
+      vertical-align: top;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .payment-message {
+      min-height: 24px;
+      font-weight: 600;
+    }
+
+    .payment-message.error {
+      color: #b42318;
+    }
+
+    .payment-message.success {
+      color: #18794e;
+    }
+
+    @media (max-width: 650px) {
+      .payments-page {
+        margin: 16px auto;
+        padding: 14px;
+      }
+
+      .payment-card {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="payments-page">
+    <a id="dashboardLink" href="/projects.html" data-i18n="paymentBack">
+      ← Back to Projects
+    </a>
+
+    <header>
+      <h1 data-i18n="paymentTitle">Project Payments</h1>
+      <p data-i18n="paymentIntro">Record and review payments related to construction projects.</p>
+    </header>
+
+    <p id="paymentMessage" class="payment-message" role="status"></p>
+
+    <section id="paymentFormCard" class="payment-card" hidden>
+      <h2 data-i18n="paymentRecordTitle">Record a payment</h2>
+
+      <form id="paymentForm">
+        <div class="payment-form-grid">
+          <div>
+            <label for="projectSelect" data-i18n="paymentProjectLabel">Project *</label>
+            <select id="projectSelect" required>
+              <option value="" data-i18n="paymentLoadingProjects">Loading projects...</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="paymentDate" data-i18n="paymentDateLabel">Payment date</label>
+            <input id="paymentDate" type="date">
+          </div>
+
+          <div>
+            <label for="paymentAmount" data-i18n="paymentAmountLabel">Amount *</label>
+            <input
+              id="paymentAmount"
+              type="number"
+              min="0"
+              max="1000000000"
+              step="0.01"
+              required
+            >
+          </div>
+
+          <div>
+            <label for="paymentMethod" data-i18n="paymentMethodLabel">Payment method</label>
+            <select id="paymentMethod">
+              <option value="" data-i18n="paymentChooseMethod">Choose a method</option>
+              <option value="Bank transfer" data-i18n="paymentBank">Bank transfer</option>
+              <option value="UPI">UPI</option>
+              <option value="Cheque" data-i18n="paymentCheque">Cheque</option>
+              <option value="Cash" data-i18n="paymentCash">Cash</option>
+              <option value="Other" data-i18n="paymentOther">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="referenceNumber" data-i18n="paymentReferenceLabel">Reference number</label>
+            <input id="referenceNumber" type="text" maxlength="120">
+          </div>
+
+          <div>
+            <label for="paymentStatus" data-i18n="paymentStatusLabel">Status</label>
+            <select id="paymentStatus">
+              <option value="pending" data-i18n="paymentPending">Pending</option>
+              <option value="paid" data-i18n="paymentPaid">Paid</option>
+              <option value="cancelled" data-i18n="paymentCancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="savePaymentButton" type="submit" data-i18n="paymentSave">
+          Save Payment
+        </button>
+      </form>
+    </section>
+
+    <section class="payment-card">
+      <h2 data-i18n="paymentHistoryTitle">Payment history</h2>
+      <div id="paymentList" data-i18n="paymentLoading">Loading payments...</div>
+    </section>
+  </main>
+
+  <script src="/js/app-language.js" defer></script>
+  <script src="/js/payments.js" defer></script>
+</body>
+</html>
